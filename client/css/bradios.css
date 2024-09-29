@@ -1,0 +1,63 @@
+/* Radio buttons CSS */
+.container {
+    width: 800px;
+    margin: 0 auto;
+}
+
+.option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.amount {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 18px;
+    margin-bottom: 5px;
+    margin-right: 16px;
+    text-align: center;        
+    border-radius: 4px;
+    float: right;
+
+    width: 80px;
+    height: auto;
+}    
+
+.amount:hover {
+    background-color: magenta;
+    width: 90px;
+}
+
+.selected-choice, .total-amount {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.donation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.donation input {
+    width: 120px;
+    height: 60px;
+    padding: 0;
+    margin-right: 10px;
+
+    text-align: center;
+    background-color:green;
+    color:white;
+    font-size: 0.8em;
+    font-weight:bold;
+}

@@ -1,0 +1,87 @@
+/* Donation options CSS */
+
+.container {
+    width: 700px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.donation-group {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    margin-left: 350px;
+
+}
+
+.donation-group1 {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    margin-left: 50px;
+
+}
+
+.donation-group h3 {
+    color:maroon;
+}
+
+.donation-group1 h3 {
+    color:maroon;
+}
+
+.donation-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.donation-options button {
+    background-color: green;
+
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    flex: 1 1 40%;  
+}
+
+.donation-options button.selected {
+    background-color: maroon;
+}
+.donation-options button:hover {
+    background-color: #0056b3;
+}
+.free-donation {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    margin-top: 10px;
+}
+.free-donation input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid green;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.free-donation span {
+    display: flex;
+    background-color: green;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+.total-amount {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}

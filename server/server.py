@@ -9,6 +9,7 @@ from flask_mail import Mail, Message
 from dotenv import load_dotenv
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from waitress import serve
 
 load_dotenv()
 # load_dotenv(find_dotenv())
@@ -432,4 +433,4 @@ def stripe_webhook():
 
 
 if __name__ == '__main__':
-    app.run(port=4242)
+    serve(app, host="0.0.0.0", port=4242)

@@ -146,3 +146,4 @@ If you'd like to contribute to this sample, please check out the guidelines in [
 
 This repository has a [code of conduct](CODE_OF_CONDUCT.md), please read it before opening an issue or a PR.
 # pdcimembership-stripe
+# pdciMembership-stripe

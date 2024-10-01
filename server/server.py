@@ -28,7 +28,7 @@ stripe.api_version = '2024-06-20'
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 static_dir = str(os.path.abspath(os.path.join(__file__ , "..", os.getenv("STATIC_DIR"))))
 # app = Flask(__name__, static_folder=static_dir, static_url_path="", template_folder=static_dir)
-app = Flask(__name__, static_folder=static_dir, static_url_path="", template_folder='../client')
+app = Flask(__name__, static_folder='../client', static_url_path="", template_folder='../client')
 
 
 # app.config['SECRET_KEY'] = "tsfyguaistyatuis589566875623568956"

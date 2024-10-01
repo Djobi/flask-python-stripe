@@ -4,20 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/narrow-jumbotron.css"> 
-    <link rel="stylesheet" href="css/global.css">
+    <!-- 
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/narrow-jumbotron.css"> 
+        <link rel="stylesheet" href="css/global.css">
 
-    <link rel="stylesheet" href="css/adhesion0.css">
-    <link rel="stylesheet" href="css/bradios.css">
+        <link rel="stylesheet" href="css/adhesion0.css">
+        <link rel="stylesheet" href="css/bradios.css">
+        <script src="https://js.stripe.com/v3/"></script>
+        <script src="./formHandler98.js" defer></script>
+    -->
+
+    <!-- Modif 01.10.2024 - for Github and Internet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/narrow-jumbotron.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/adhesion0.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bradios.css') }}">
 
     <script src="https://js.stripe.com/v3/"></script>
-    <script src="./formHandler98.js" defer></script>
+    <script src="{{ url_for('static', filename='formHandler98.js') }}" defer></script>
 
-    <!-- <script src="./payment.js" defer></script>  -->
 
-    <title>PDCI-RDA Integreted Membership Form</title>
+    <title>Fiche d'Adhésion au PDCI-RDA</title>
     <style>
         body {
             font-family: Arial, sans-serif;

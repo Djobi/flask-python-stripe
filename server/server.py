@@ -1,6 +1,7 @@
 import os
 import stripe
 import json
+import boto3
 
 import smtplib
 
@@ -49,18 +50,57 @@ def get_root():
 # 1. Define the file to store membership data
 members_file = 'members.json'
 
+#--------------------------
+# Modifs 1 - 8.10.24 ...
 # Function to load members from the file
-def load_members():
-    if os.path.exists(members_file):
-        with open(members_file, 'r') as file:
-            return json.load(file)
-    else:
-        return []
+# def load_members():
+#    if os.path.exists(members_file):
+#        with open(members_file, 'r') as file:
+#            return json.load(file)
+#    else:
+#        return []
 
 # Function to save members to the file
+#def save_members(members):
+#    with open(members_file, 'w') as file:
+#        json.dump(members, file, indent=4)
+#
+# End modifs 1 ...
+
+
+# Modifs 2 - 8.10.2024 - Modifying the load_members() and save_members() functions to interact with S3. 
+s3 = boto3.client('s3')
+BUCKET_NAME = 'pdci-uploading-files'    # Replace with your S3 bucket name
+S3_FILE_KEY = 'members.json'      # The name of the file in your S3 bucket
+
+# Download the file from S3 and load the members
+def load_members():
+    try:
+        # Download the file from S3
+        s3.download_file(BUCKET_NAME, S3_FILE_KEY, '/tmp/members.json')
+
+        # Load members from the local temporary file
+        with open('/tmp/members.json', 'r') as file:
+            return json.load(file)
+    except Exception as e:
+        print(f"Error loading members: {e}")
+        return []  # Return an empty list if the file doesn't exist
+
+# Save the members back to S3
 def save_members(members):
-    with open(members_file, 'w') as file:
-        json.dump(members, file, indent=4)
+    try:
+        # Save the members to a temporary file
+        with open('/tmp/members.json', 'w') as file:
+            json.dump(members, file, indent=4)
+
+        # Upload the file back to S3
+        s3.upload_file('/tmp/members.json', BUCKET_NAME, S3_FILE_KEY)
+    except Exception as e:
+        print(f"Error saving members: {e}")
+
+# End Modifs 2 8.10.2024
+#--------------------------------
+
 
 
 # Function to send the receipt to registered Members goes here ...

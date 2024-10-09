@@ -5914,5 +5914,31 @@
         "organe_Parti": "Comite de Sages",
         "association": "BERA",
         "total_amount": "153.00 \u20ac"
+    },
+    {
+        "title": "Monsieur",
+        "last_name": "KOUAKOU",
+        "first_name": "Georges",
+        "adherent_number": "4501-0006-CDY",
+        "elector_number": "V0201329547",
+        "profession": "Ingenieur Informaticien",
+        "dob": "1967-08-10",
+        "admin_piece": "CNI France",
+        "issue_date": "2017-05-20",
+        "email": "georges.abitbole.08@gmail.com",
+        "phone": "0763690752",
+        "address": "13 rue du 18 Juin 1940",
+        "postal_code": "94700",
+        "city": "Maisons Alfort",
+        "country": "France",
+        "region": "IDF - Val de Marne",
+        "membership_date": "2011-08-31",
+        "district": "DDIA - District de la Diaspora",
+        "delegation": "DGPES - DG Paris Essonne ",
+        "membership_line": "Adhesion ou renouvellement pour les Cadres & GCR",
+        "section": "",
+        "organe_Parti": "Grand Conseil Regional",
+        "association": "CSBD",
+        "total_amount": "100.00 \u20ac"
     }
 ]

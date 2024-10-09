@@ -68,7 +68,6 @@ members_file = 'members.json'
 # End modifs 1 ...
 
 
-""" 
 # Modifs 2 - 8.10.2024 - Modifying the load_members() and save_members() functions to interact with S3. 
 s3 = boto3.client('s3')
 BUCKET_NAME = 'pdci-uploading-files'    # Replace with your S3 bucket name
@@ -100,56 +99,6 @@ def save_members(members):
         print(f"Error saving members: {e}")
 
 # End Modifs 2 8.10.2024
-"""
-
-
-# Modifs 3 - 9.10.2024 Using an environment variable to switch between local and AWS S3 cloud-based behavior
-s3 = boto3.client('s3')
-BUCKET_NAME = 'pdci-uploading-files'    # Replace with your S3 bucket name
-S3_FILE_KEY = 'members.json'      # The name of the file in your S3 bucket
-
-# Check if we're using S3 (based on the environment)
-USE_S3 = os.getenv('USE_S3', 'False').lower() == 'true'
-
-members_file_local = 'members.json'  # For local storage
-
-# Function to load members from the appropriate source
-def load_members():
-    if USE_S3:
-        try:
-            # Download the file from S3
-            s3.download_file(BUCKET_NAME, S3_FILE_KEY, '/tmp/members.json')
-            with open('/tmp/members.json', 'r') as file:
-                return json.load(file)
-        except Exception as e:
-            print(f"Error loading members from S3: {e}")
-            return []
-    else:
-        # Local file loading
-        if os.path.exists(members_file_local):
-            with open(members_file_local, 'r') as file:
-                return json.load(file)
-        else:
-            return []
-
-# Function to save members to the appropriate source
-def save_members(members):
-    if USE_S3:
-        try:
-            # Save the members to a temporary file and upload to S3
-            with open('/tmp/members.json', 'w') as file:
-                json.dump(members, file, indent=4)
-            s3.upload_file('/tmp/members.json', BUCKET_NAME, S3_FILE_KEY)
-        except Exception as e:
-            print(f"Error saving members to S3: {e}")
-    else:
-        # Save locally
-        with open(members_file_local, 'w') as file:
-            json.dump(members, file, indent=4)
-
-
-
-# End modif 3 - 9.10.2024
 #-------------------------
 # Function to send the receipt to registered Members goes here ...
 def send_receipt_email(msg): 

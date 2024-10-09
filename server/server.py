@@ -104,6 +104,7 @@ def save_members(members):
 
 
 # Modifs 3 - 9.10.2024 Using an environment variable to switch between local and AWS S3 cloud-based behavior
+""" 
 s3 = boto3.client('s3')
 BUCKET_NAME = 'pdci-uploading-files'    # Replace with your S3 bucket name
 S3_FILE_KEY = 'members.json'      # The name of the file in your S3 bucket
@@ -147,10 +148,76 @@ def save_members(members):
         with open(members_file_local, 'w') as file:
             json.dump(members, file, indent=4)
 
-
-
 # End modif 3 - 9.10.2024
 #-------------------------
+"""
+
+
+# Modifs 4 - 9.10.2024 Using an environment variable to switch between local and AWS S3 cloud-based behavior and ...
+# synchronize files between local and AWS S3 ...
+# S3 Configuration
+
+s3 = boto3.client('s3')
+BUCKET_NAME = 'pdci-uploading-files'    # Replace with your S3 bucket name
+S3_FILE_KEY = 'members.json'      # The name of the file in your S3 bucket
+
+# Check if we're using S3 (based on the environment)
+USE_S3 = os.getenv('USE_S3', 'False').lower() == 'true'
+
+members_file_local = 'members.json'  # For local storage
+
+# Function to load members and sync with S3 if needed
+def load_members():
+    # Always download the latest members.json from S3 when the app starts
+    if USE_S3:
+        try:
+            print("Downloading from S3...")
+            s3.download_file(BUCKET_NAME, S3_FILE_KEY, '/tmp/members.json')
+            with open('/tmp/members.json', 'r') as file:
+                return json.load(file)
+        except Exception as e:
+            print(f"Error loading members from S3: {e}")
+            return []
+    else:
+        # If using locally, attempt to download from S3 for sync
+        try:
+            print("Syncing local file with S3...")
+            s3.download_file(BUCKET_NAME, S3_FILE_KEY, members_file_local)
+        except Exception as e:
+            print(f"Error syncing local file from S3: {e}")
+
+        # Load the local file
+        if os.path.exists(members_file_local):
+            with open(members_file_local, 'r') as file:
+                return json.load(file)
+        else:
+            return []
+
+# Function to save members and sync to S3
+def save_members(members):
+    if USE_S3:
+        try:
+            # Save the members to a temporary file and upload to S3
+            with open('/tmp/members.json', 'w') as file:
+                json.dump(members, file, indent=4)
+            s3.upload_file('/tmp/members.json', BUCKET_NAME, S3_FILE_KEY)
+        except Exception as e:
+            print(f"Error saving members to S3: {e}")
+    else:
+        # Save locally
+        with open(members_file_local, 'w') as file:
+            json.dump(members, file, indent=4)
+
+        # After saving locally, upload to S3 to sync
+        try:
+            s3.upload_file(members_file_local, BUCKET_NAME, S3_FILE_KEY)
+        except Exception as e:
+            print(f"Error syncing local file to S3: {e}")
+
+# End modif 4 ...
+
+
+
 # Function to send the receipt to registered Members goes here ...
 def send_receipt_email(msg): 
         try:

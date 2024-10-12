@@ -50,22 +50,6 @@ def get_root():
 # 1. Define the file to store membership data
 members_file = 'members.json'
 
-#--------------------------
-# Modifs 1 - 8.10.24 ...
-# Function to load members from the file
-# def load_members():
-#    if os.path.exists(members_file):
-#        with open(members_file, 'r') as file:
-#            return json.load(file)
-#    else:
-#        return []
-
-# Function to save members to the file
-#def save_members(members):
-#    with open(members_file, 'w') as file:
-#        json.dump(members, file, indent=4)
-#
-# End modifs 1 ...
 
 
 """ 

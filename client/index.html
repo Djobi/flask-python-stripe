@@ -27,9 +27,43 @@
 
     <script src="https://js.stripe.com/v3/"></script>
     <script src="{{ url_for('static', filename='formHandler98.js') }}" defer></script>
-
+    
 
     <title>Fiche d'Adhésion au PDCI-RDA</title>
+
+    <!-- Include styles and scripts for intl-tel-input -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.3/css/intlTelInput.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.3/js/intlTelInput.min.js"></script>
+
+    
+    <!-- Changes for coutry selection ... -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/css/flag-icons.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Include Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Include jQuery (Select2 requires jQuery) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Include Select2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
+
+    <style>
+        .select2-container .select2-selection--single {
+            height: 40px; /* Adjust as per your design */
+            display: flex;
+            align-items: center;
+        }
+        .select2-container .select2-selection__rendered {
+            line-height: 40px; /* Adjust to vertically align text */
+        }
+        .select2-container .select2-selection__arrow {
+            height: 40px;
+        }
+    </style>
+ 
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -88,6 +122,7 @@
         .checkbox input {
             margin-right: 10px;
         }
+
     </style>
 </head>
 <body>
@@ -157,8 +192,19 @@
                 <h3>Contacts et Coordonnées</h3>
                 <label for="email">Email *</label>
                 <input type="email" id="email" name="email" required>
+
+                
                 <label for="phone">Téléphone *</label>
                 <input type="tel" id="phone" name="phone" required>
+
+                <!-- 
+                    <form method="post" action="/submit">
+                        <label for="phone">Phone Number:</label>
+                        <input type="tel" id="phone" name="phone">
+                        <button type="submit">Submit</button>
+                </form>
+                -->
+
                 <label for="address">Addresse *</label>
                 <input type="text" id="address" name="address" required>
                 <label for="postal-code">Code Postal *</label>
@@ -166,64 +212,76 @@
                 <label for="city">Ville (Commune) *</label>
                 <input type="text" id="city" name="city" required>
 
-                <label for="country">Pays *</label>
-                <select id="country" name="country" required>
-                    <option value="Côte d'ivoire">Côte d'ivoire</option>
-                    <option value="">---------------</option>
-                    <option value="France">France</option>
-                    <option value="Burkina Faso">Burkina Faso</option>                
-                    <option value="Mali">Mali</option>
-                    <option value="Niger">Niger</option>
-                    <option value="Senegal">Senegal</option>
-                    <option value="Ghana">Ghana</option>
-                    <option value="Guinee">Guinee</option>
-                    <option value="Togo">Togo</option>
-                    <option value="Benin">Benin</option>
-                    <option value="Liberia">Liberia</option>
-                    <option value="Siera Leone">Siera Leone</option>
-                    <option value="Gambie">Gambie</option>
-                    <option value="Nigeria">Nigeria</option>
-                    <option value="Cameroon">Cameroon</option>
-                    <option value="Gabon">Gabon</option>
-                    <option value="Congo Brazaville">Congo Brazaville</option>
-                    <option value="RD Congo">RD Congo</option>
-                    <option value="Centrafrique">Centrafrique</option>
-                    <option value="Rwanda">Rwanda</option>
-                    <option value="Ouganda">Ouganda</option>
 
-                    <option value="Espagne">Espagne</option>
-                    <option value="Portugal">Portugal</option>    
-                    <option value="Italie">Italie</option>
-                    <option value="Suisse">Suisse</option>
-                    <option value="Allemagne">Allemagne</option>
-                    <option value="Belgique">Belgique</option>
-                    <option value="Danemark">Danemark</option>
-                    <option value="Norvege">Norvege</option>
-                    <option value="Suede">Suede</option>
-                    <option value="Finlande">Finlande</option>                    
+                <!-- <form method="post" action="/countries"> -->
+                    <label for="country">Pays *</label>
+                    <select id="country" name="country" required>
+                        <!-- Options will be populated dynamically by JavaScript -->
+                    </select>
+                <!-- </form>  -->
 
-                    <option value="Pays-Bas">Pays-Bas</option>
-                    <option value="Luxembourg">Luxembourg</option>
-                    <option value="Chine">Chine</option>
-                    <option value="Russie">Russie</option>
-                    <option value="South Africa">South Africa</option>
-                    <option value="USA">USA</option>
-                    <option value="Canada">Canada</option>
-                    <option value="Nouvelle Zelande">Nouvelle Zelande</option>
-                    <option value="Australie">Australie</option>
+               
+                <!-- 
+                    <label for="country">Pays *</label>
+                    <select id="country" name="country" required>
+                        <option value="Côte d'ivoire">Côte d'ivoire</option>
+                        <option value="">---------------</option>
+                        <option value="France">France</option>
+                        <option value="Burkina Faso">Burkina Faso</option>                
+                        <option value="Mali">Mali</option>
+                        <option value="Niger">Niger</option>
+                        <option value="Senegal">Senegal</option>
+                        <option value="Ghana">Ghana</option>
+                        <option value="Guinee">Guinee</option>
+                        <option value="Togo">Togo</option>
+                        <option value="Benin">Benin</option>
+                        <option value="Liberia">Liberia</option>
+                        <option value="Siera Leone">Siera Leone</option>
+                        <option value="Gambie">Gambie</option>
+                        <option value="Nigeria">Nigeria</option>
+                        <option value="Cameroon">Cameroon</option>
+                        <option value="Gabon">Gabon</option>
+                        <option value="Congo Brazaville">Congo Brazaville</option>
+                        <option value="RD Congo">RD Congo</option>
+                        <option value="Centrafrique">Centrafrique</option>
+                        <option value="Rwanda">Rwanda</option>
+                        <option value="Ouganda">Ouganda</option>
 
-                    <option value="Bresil">Bresil</option>
-                    <option value="Argentine">Argentine</option>
-                    <option value="Colombie">Colombie</option>
-                    <option value="Uruguay">Uruguay</option>
-                    <option value="Venezuela">Venezuela</option>
-                    <option value="Chili">Chili</option>
-                    <option value="Perou">Perou</option>
-                    <option value="Equateur">Equateur</option>
-                    <option value="Costa Rica">Costa Rica</option>
-                    <option value="Paraguay">Paraguay</option>
-                    <option value="Bolivie">Bolivie</option>
-                </select>
+                        <option value="Espagne">Espagne</option>
+                        <option value="Portugal">Portugal</option>    
+                        <option value="Italie">Italie</option>
+                        <option value="Suisse">Suisse</option>
+                        <option value="Allemagne">Allemagne</option>
+                        <option value="Belgique">Belgique</option>
+                        <option value="Danemark">Danemark</option>
+                        <option value="Norvege">Norvege</option>
+                        <option value="Suede">Suede</option>
+                        <option value="Finlande">Finlande</option>                    
+
+                        <option value="Pays-Bas">Pays-Bas</option>
+                        <option value="Luxembourg">Luxembourg</option>
+                        <option value="Chine">Chine</option>
+                        <option value="Russie">Russie</option>
+                        <option value="South Africa">South Africa</option>
+                        <option value="USA">USA</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Nouvelle Zelande">Nouvelle Zelande</option>
+                        <option value="Australie">Australie</option>
+
+                        <option value="Bresil">Bresil</option>
+                        <option value="Argentine">Argentine</option>
+                        <option value="Colombie">Colombie</option>
+                        <option value="Uruguay">Uruguay</option>
+                        <option value="Venezuela">Venezuela</option>
+                        <option value="Chili">Chili</option>
+                        <option value="Perou">Perou</option>
+                        <option value="Equateur">Equateur</option>
+                        <option value="Costa Rica">Costa Rica</option>
+                        <option value="Paraguay">Paraguay</option>
+                        <option value="Bolivie">Bolivie</option>
+                    </select>
+                -->
+
 
                 <label for="region">Regions - Departments</label>
                 <input type="text" id="region" name="region">
@@ -402,6 +460,54 @@
 
         <script src="{{ url_for('static', filename='formHandler98.js') }}"></script>
     </div>
+
+    <script>
+        // Initialize intl-tel-input on the phone input field
+        const phoneInput = document.querySelector("#phone");
+        const iti = window.intlTelInput(phoneInput, {
+            initialCountry: "auto",
+            geoIpLookup: function(callback) {
+                fetch('https://ipinfo.io?token=<your_token>')
+                    .then(response => response.json())
+                    .then(data => callback(data.country))
+                    .catch(() => callback('fr'));
+            },
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.3/js/utils.js",
+            separateDialCode: true,
+        });
+    </script>
+
+
+    <script>
+        // Load the countries data and populate the dropdown
+        $(document).ready(function() {
+
+            console.log('1. Loading all countries ...');
+
+            $.getJSON('/countries.json', function(data) {
+                data.forEach(function(country) {
+                    $('#country').append(
+                        `<option value="${country.code}" data-dial-code="${country.dial_code}">
+                            ${country.flag} ${country.name} (${country.dial_code})
+                        </option>`
+                    );
+
+                    console.log(country);
+                    
+                });
+
+                console.log('3. All countries Loaded !!');
+
+                // Initialize Select2 with the dropdown
+                $('#country').select2({
+                    placeholder: 'Choisissez le Pays',
+                    width: '97%',
+                    allowClear: false
+                });
+            });
+        });
+    </script>
+
 </body>
 </html>
 

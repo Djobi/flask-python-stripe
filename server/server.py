@@ -5,12 +5,14 @@ import boto3
 
 import smtplib
 
-from flask import Flask, render_template, jsonify, request, url_for, redirect
+from flask import Flask, render_template, jsonify, request, url_for, redirect, send_from_directory
 from flask_mail import Mail, Message
 from dotenv import load_dotenv
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from waitress import serve
+
+
 
 load_dotenv()
 # load_dotenv(find_dotenv())
@@ -39,6 +41,29 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = "georges.abitbole.08@gmail.com"
 app.config['MAIL_PASSWORD'] = "jrcsxerssivbrkfp"
 mail = Mail(app)
+
+
+# Modifs 18.1024 - For countries and phones selection ...
+# Serve the JSON file from the custom client directory
+@app.route('/countries')
+def get_countries():
+    
+    print(f"0. Serving the JSoN file ...")
+    return send_from_directory('client', 'countries.json')
+
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        selected_country = request.form.get('country')
+        phone_number = request.form.get('phone')
+
+        print(f"Selected country: {selected_country}")
+        print(f"Phone number: {phone_number}")
+
+        return f"Selected country: {selected_country}, Phone number: {phone_number}"
+    return render_template('index.html')
+# End Modifs 18.10.24
 
 
 # @app.route('/')
